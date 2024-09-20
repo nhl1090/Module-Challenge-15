@@ -1,8 +1,5 @@
 const { connect, connection } = require('mongoose');
 
-connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/socialnetwork', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
+connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/socialnetwork');
 
 module.exports = connection;
