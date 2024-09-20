@@ -1,31 +1,33 @@
-const { Schema, model } = require('mongoose');
+const { Schema, Types } = require('mongoose');
 
-const ReactionSchema = new Schema(
+const reactionSchema = new Schema(
   {
-    reactionName: {
+    reactionId: {
+      type: Types.ObjectId,
+      default: () => new Types.ObjectId(),
+    },
+    reactionBody: {
+      type: String,
+      required: true,
+      maxlength: 280,
+    },
+    username: {
       type: String,
       required: true,
     },
-    color: {
-      type: String,
-      default: '#008080',
+    createdAt: {
+      type: Date,
+      default: Date.now,
+
+      get: (timestamp) => new Date(timestamp).toLocaleDateString(),
     },
-    createdAt: Date,
   },
   {
     toJSON: {
-      virtuals: true,
+      getters: true,
     },
+    id: false,
   }
 );
 
-reactionSchema
-  .virtual('getReactionCss')
-  // Getter
-  .get(function () {
-    return `color: ${this.color}`;
-  });
-
-const Reaction = model('reaction', reactionSchema);
-
-module.exports = Reaction;
+module.exports = reactionSchema;

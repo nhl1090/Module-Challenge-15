@@ -11,10 +11,10 @@ const thoughtSchema = new Schema(
       type: Date,
       default: Date.now,
     },
-    tags: [
+    thoughts: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'tag',
+        ref: 'thought',
       },
     ],
     text: {
@@ -31,12 +31,12 @@ const thoughtSchema = new Schema(
   }
 );
 
-// Create a virtual property `tagCount` that gets the amount of comments per user
+// Create a virtual property `thoughtCount` that gets the amount of comments per user
 thoughtSchema
-  .virtual('tagCount')
+  .virtual('thoughtCount')
   // Getter
   .get(function () {
-    return this.tags.length;
+    return this.thoughts.length;
   });
 
 // Initialize our Thought/Post model
